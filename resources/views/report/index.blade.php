@@ -15,5 +15,23 @@
             </div>
         </div>
     </header>
+
+    <main>
+        <div>
+            @foreach ($reports as $report)
+            <div style="display:flex; width: 60%; justify-content:space-between;border: 1px solid">
+                <p>{{ $report->number }}</p>
+                <p>{{ $report->description }}</p>
+                <p>{{ $report->status_id }}</p>
+                <form method="POST" action="{{route('reports.destroy', $report->id)}}">
+                    @method('delete')
+                    @csrf
+                    <input type="submit" value="Delete">
+                </form>
+            </div>
+            <br>
+            @endforeach
+        </div>
+    </main>
 </body>
 </html>
