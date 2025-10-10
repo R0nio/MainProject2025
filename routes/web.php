@@ -16,3 +16,6 @@ Route::get('/reports/create', function () {
 Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
 
 Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
+
+Route::get('/reports/{report}/edit', [ReportController::class, 'edit'])->name('reports.edit');
+Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');

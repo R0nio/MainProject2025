@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
+    <title>Index</title>
 </head>
 <body>
     <header>
@@ -17,6 +17,7 @@
     </header>
 
     <main>
+        <a href="../reports/create">Создать</a>
         <div>
             @foreach ($reports as $report)
             <div style="display:flex; width: 60%; justify-content:space-between;border: 1px solid">
@@ -28,6 +29,7 @@
                     @csrf
                     <input type="submit" value="Delete">
                 </form>
+                <a href="{{ route('reports.edit', $report->id) }}">Edit</a>
             </div>
             <br>
             @endforeach
@@ -35,3 +37,19 @@
     </main>
 </body>
 </html>
+
+<style>
+    a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        width: 100px;
+        height: 25px;
+        border: 1px solid;
+        text-decoration: none;
+        color: black;
+        background-color: #d1d1d1ff;
+        margin: 24px 0px;
+    }
+</style>
