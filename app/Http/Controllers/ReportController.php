@@ -3,15 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\report;
+use App\Models\Status;
 use Illuminate\Http\Request;
 
-use function PHPSTORM_META\map;
 
 class ReportController extends Controller
 {
-    public function index(){
-        $reports = report::all(); 
-        return view('report.index', compact('reports'));
+    public function index(Request $request){
+
+        $sort = $request->input('sort');
+        if($sort !='asc' && $sort !='desc' ){
+            $sort = 'desc';
+        }
+
+        $status = $request->input('status');
+        $validate = $request->validate([
+            'status' => "exists:statuses,id"
+        ]);
+        if($validate){
+            $reports = report::where('status_id', $status)
+                    ->orderBy('created_at', $sort)
+                    ->simplePaginate(8);
+        } else {
+            $reports = report::orderBy('created_at', $sort)
+                    ->simplePaginate(8);
+        }
+
+        $statuses = Status::all();
+
+        return view('report.index', compact('reports', 'statuses', 'sort', 'status'));
     }
 
     public function destroy(Report $report){
