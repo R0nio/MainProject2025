@@ -19,6 +19,7 @@
     <main>
         <a href="../reports/create">Создать</a>
         <div>
+            <x-app-layout>
             <div>
                 <span>Сортировка по дате создания:</span>
                 <a href="{{ route('reports.index', ['sort' => 'desc', 'status' => $status]) }}" style="width:200px">Сначала новые</a>
@@ -41,6 +42,7 @@
                 <p>{{ $report->number }}</p>
                 <p class="card_description">{{ $report->description }}</p>
                 <p>{{ $report->status->name }}</p>
+                <p>{{ $report->created_at }}</p>
                 <form method="POST" action="{{route('reports.destroy', $report->id)}}">
                     @method('delete')
                     @csrf
@@ -51,6 +53,7 @@
             <br>
             @endforeach
             {{ $reports->links() }}
+            </x-app-layout>
         </div>
     </main>
 </body>
