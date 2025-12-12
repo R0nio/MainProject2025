@@ -1,90 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-</head>
-<body>
-    <header>
-        <div>
-            <h1>Нарушений<span class="logo_red">.Нет</span></h1>
-            <!-- <div class="headere_login">
-                <p>Носова Ольга Петровна</p>
-                <button class="">></button>
-            </div> -->
-        </div>
-    </header>
+@props(['sort', 'status'])
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Все репорты') }}
+        </h2>
+    </x-slot>
 
-    <main>
-        <a href="../reports/create">Создать</a>
-        <div>
-            <x-app-layout>
+    <div class="py-12 max-lg:mx-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <a href="../reports/create" class="button_a">Создать</a>
+
+
             <div>
-                <span>Сортировка по дате создания:</span>
-                <a href="{{ route('reports.index', ['sort' => 'desc', 'status' => $status]) }}" style="width:200px">Сначала новые</a>
-                <a href="{{ route('reports.index', ['sort' => 'asc', 'status' => $status]) }}" style="width:200px">Сначала старые</a>
+                <div style="display: flex; gap:24px; " class="max-sm:flex-wrap max-sm:justify-center">
+
+                    <x-filter :sort=$sort :status=$status></x-filter>
+                </div>
+                @foreach ($reports as $report)
+                <div class="card max-sm:flex-wrap">
+                    <p style="margin-right: 4px;">{{ $report->number }}</p>
+                    <p class="card_description">{{ $report->description }}</p>
+                    <p style="margin-right: 4px;">{{ $report->status->name }}</p>
+                    <p>{{ \Carbon\Carbon::parse($report->created_at)->translatedFormat('j F Y h:i'); }}</p>
+                    <x-status :type="$report->status->id">
+                        {{ $report->status->name }}
+                    </x-status>
+
+                    <form method="POST" action="{{ route('reports.destroy', $report->id) }}"
+                        style="padding: 4px; border: 1px solid black; margin-right: 8px;">
+                        @method('delete')
+                        @csrf
+                        <input type="submit" value="Delete">
+                    </form>
+
+                    <a href="{{ route('reports.edit', $report->id) }}" class="button_a">Edit</a>
+                </div>
+                <br>
+                @endforeach
+                {{ $reports->links() }}
             </div>
-            <div>
-                <p>Фильтрация по статусу заявки</p>
-                <ul>
-                    @foreach($statuses as $status)
-                        <li>
-                            <a href="{{ route('reports.index', ['sort' => $sort, 'status' => $status->id]) }}">
-                                {{$status->name}}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-            @foreach ($reports as $report)
-            <div class="card">
-                <p>{{ $report->number }}</p>
-                <p class="card_description">{{ $report->description }}</p>
-                <p>{{ $report->status->name }}</p>
-                <p>{{ $report->created_at }}</p>
-                <form method="POST" action="{{route('reports.destroy', $report->id)}}">
-                    @method('delete')
-                    @csrf
-                    <input type="submit" value="Delete">
-                </form>
-                <a href="{{ route('reports.edit', $report->id) }}">Edit</a>
-            </div>
-            <br>
-            @endforeach
-            {{ $reports->links() }}
-            </x-app-layout>
         </div>
-    </main>
-</body>
-</html>
+    </div>
+</x-app-layout>
+
+
 
 <style>
-    a{
+    .button_a {
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 16px;
-        width: 100px;
-        height: 25px;
+        width: auto;
+        height: 40px;
         border: 1px solid;
         text-decoration: none;
         color: black;
         background-color: #d1d1d1ff;
         margin: 24px 0px;
     }
-    .card{
-        display:flex;
-        width: 60%;
-        justify-content:space-between;
+
+    .card {
+        display: flex;
+        width: auto;
+        justify-content: space-between;
         align-items: center;
         border: 1px solid;
         padding: 12px;
     }
-    .card_description{
+
+    .card_description {
         width: 400px;
     }
-    svg{
+
+    svg {
         width: 50px;
         height: 50px;
     }

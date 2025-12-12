@@ -1,26 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show</title>
-</head>
-<body>
-        <a href="../" >Назад</a>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Обновление репорта') }}
+        </h2>
+    </x-slot>
 
-        <form action="{{route('reports.update', $report->id)}}" method="POST">
-            @csrf
-            @method('put')
-            <input type="text" name="number" placeholder="Номер" value="{{$report->number}}"><br>
-            <textarea name="description" placeholder="Описание заявки">{{$report->description}}</textarea><br>
-            <input type="submit" value="Обновить">
-        </form>
-</body>
-</html>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <a href="../" class="button_a">Назад</a>
+
+            <form action="{{route('reports.update', $report->id)}}" method="POST">
+                @csrf
+                @method('put')
+                <input type="text" name="number" placeholder="Номер" value="{{$report->number}}"><br>
+                <textarea name="description" placeholder="Описание заявки">{{$report->description}}</textarea><br>
+                <input type="submit" style="padding: 4px; border: 1px solid black; " value="Обновить">
+            </form>
+
+        </div>
+    </div>
+</x-app-layout>
 
 
 <style>
-    a{
+    .button_a {
         display: flex;
         align-items: center;
         justify-content: center;

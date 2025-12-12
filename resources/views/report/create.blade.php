@@ -1,24 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create</title>
-</head>
-<body>
-    <a href="../reports" >Назад</a>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Создание репорта') }}
+        </h2>
+    </x-slot>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <a href="../reports" class="button_a">Назад</a>
 
-    <form action="{{route('reports.store')}}" method="POST">
-        @csrf
-        <input type="text" name="number" placeholder="Номер авто"><br>
-        <textarea name="description" placeholder="Описание заявки"></textarea><br>
-        <input type="submit" value="Создать продукт">
-    </form>
-</body> 
-</html>
+            <form action="{{route('reports.store')}}" method="POST">
+                @csrf
+                <input type="text" name="number" placeholder="Номер авто" required><br>
+                <textarea name="description" placeholder="Описание заявки" required></textarea><br>
+                <input type="submit" value="Создать продукт" style="padding: 4px; border: 1px solid black; ">
+            </form>
+        </div>
+    </div>
+</x-app-layout>
+
 
 <style>
-    a{
+    .button_a {
         display: flex;
         align-items: center;
         justify-content: center;

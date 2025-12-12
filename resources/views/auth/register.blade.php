@@ -32,7 +32,7 @@
 
         <!-- Login -->
         <div class="mt-4">
-            <x-input-label for="login" :value="__('Login')" />
+            <x-input-label for="login" :value="__('login_register')" />
             <x-text-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" required autocomplete="login" />
             <x-input-error :messages="$errors->get('login')" class="mt-2" />
         </div>
@@ -40,7 +40,7 @@
         <!-- Tel -->
         <div class="mt-4">
             <x-input-label for="tel" :value="__('Tel')" />
-            <x-text-input id="tel" class="block mt-1 w-full" type="tel" name="tel" :value="old('tel')" required autocomplete="tel" />
+            <x-tel-input id="tel" class="block mt-1 w-full" type="tel" name="tel" :value="old('tel')" required autocomplete="tel" />
             <x-input-error :messages="$errors->get('tel')" class="mt-2" />
         </div>
 
@@ -49,9 +49,9 @@
             <x-input-label for="password" :value="__('Password')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+                type="password"
+                name="password"
+                required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -61,8 +61,8 @@
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
             <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+                type="password"
+                name="password_confirmation" required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
