@@ -1,4 +1,4 @@
-<x-app-layout>
+14:12 20.12.2025<x-app-layout>
     <h1>Админ панель</h1>
     <div class="grid grid-cols-1 m-16 gap-4">
         @foreach ($reports as $report)
@@ -14,6 +14,12 @@
             <div>
                 <h3>Номер автомобиля</h3>
                 <p>{{ $report->number }}</p>
+            </div>
+            <div>
+                <p>Фото</p>
+                @isset($report->path_img)
+                <img src="{{Storage::url($report->path_img)}}" width="200" class="contact-block__img" alt="">
+                @endisset
             </div>
             <div>
                 <form class="status-form" method="post" action="{{ route('reports.status.update', $report->id ) }}">

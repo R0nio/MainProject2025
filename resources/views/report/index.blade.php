@@ -26,6 +26,10 @@
                         {{ $report->status->name }}
                     </x-status>
 
+                    @isset($report->path_img)
+                    <img src="{{Storage::url($report->path_img)}}" width="200" class="contact-block__img" alt="">
+                    @endisset
+
                     <form method="POST" action="{{ route('reports.destroy', $report->id) }}"
                         style="padding: 4px; border: 1px solid black; margin-right: 8px;">
                         @method('delete')
